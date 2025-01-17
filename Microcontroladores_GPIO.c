@@ -56,3 +56,31 @@ void init_gpio() {
     gpio_set_dir(BUZZER, GPIO_OUT);
 }
 
+void tocar_buzzer(int duracao)
+{
+    int tempo = duracao;
+    while (tempo > 0)
+    {
+        gpio_put(BUZZER, true); // Ligar buzzer
+        sleep_ms(0.5);            
+        tempo--;
+        gpio_put(BUZZER, false); // Desligar buzzer
+        sleep_ms(2);             
+        tempo -= 3;
+    }
+}
+
+// Lê o teclado matricial
+char ler_teclado() {
+    for (int row = 0; row < ROWS; row++) {
+        gpio_put(linhas[row], false);  // Ativa linha
+        for (int col = 0; col < COLS; col++) {
+            if (!gpio_get(colunas[col])) {  // Checa se a coluna está baixa
+                gpio_put(linhas[row], true);
+                return keys[row][col];
+            }
+        }
+        gpio_put(linhas[row], true);  // Desativa linha
+    }
+    return '\0';
+}
