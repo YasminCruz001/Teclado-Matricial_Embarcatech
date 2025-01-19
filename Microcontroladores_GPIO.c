@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 
-// Pinos dos LEDs RGB
+// Definições dos pinos dos LEDs RGB
 #define LED_GREEN 11
 #define LED_BLUE 12
 #define LED_RED 13
 
-// Pino do buzzer
+// Definição do pino do buzzer
 #define BUZZER 21
 
-// Configuração das dimensões do teclado matricial
+// Configuração do teclado matricial
 #define ROWS 4
 #define COLS 4
 
@@ -25,20 +25,23 @@ const char keys[ROWS][COLS] = {
     {'*', '0', '#', 'D'}
 };
 
-// Inicialização dos GPIOs
+// Debounce (em milissegundos)
+#define DEBOUNCE_TIME_MS 300
+
+// Função para inicializar GPIOs
 void init_gpio() {
-    // Configura linhas como saída e colunas como entrada
+    // Configura as linhas como saída e colunas como entrada
     for (int i = 0; i < ROWS; i++) {
         gpio_init(linhas[i]);
         gpio_set_dir(linhas[i], GPIO_OUT);
-        gpio_put(linhas[i], true);
+        gpio_put(linhas[i], true); // Estado padrão
     }
     for (int i = 0; i < COLS; i++) {
         gpio_init(colunas[i]);
         gpio_set_dir(colunas[i], GPIO_IN);
-        gpio_pull_up(colunas[i]); //uso de pull up setando como 1 o estado padrão(inativo)
+        gpio_pull_up(colunas[i]); // Ativa pull-up
     }
-    
+
     // Configura LEDs e buzzer como saída
     gpio_init(LED_RED);
     gpio_set_dir(LED_RED, GPIO_OUT);
@@ -56,201 +59,140 @@ void init_gpio() {
     gpio_set_dir(BUZZER, GPIO_OUT);
 }
 
-// Função para tocar o buzzer por um período
+// Função para tocar o buzzer
 void tocar_buzzer(int duracao) {
-    int tempo = duracao;
-    while (tempo > 0) {
-        gpio_put(BUZZER, true); // Ligar buzzer
-        sleep_ms(1);            
-        tempo--;
-        gpio_put(BUZZER, false); // Desligar buzzer
-        sleep_ms(3);             
-        tempo -= 3;
+    if (duracao <= 0) return; // Ignora valores inválidos
+
+    while (duracao > 0) {
+        gpio_put(BUZZER, true);
+        sleep_ms(1);
+        gpio_put(BUZZER, false);
+        sleep_ms(3);
+        duracao -= 4;
     }
 }
 
-// Lê o teclado matricial
+// Função para ler o teclado matricial
 char ler_teclado() {
     for (int row = 0; row < ROWS; row++) {
-        gpio_put(linhas[row], false);  // Ativa linha
+        gpio_put(linhas[row], false); // Ativa a linha
+
         for (int col = 0; col < COLS; col++) {
-            if (!gpio_get(colunas[col])) {  // Checa se a coluna está baixa (uso da lógica inversa por conta do uso de PULL UP)
-                gpio_put(linhas[row], true);
+            if (!gpio_get(colunas[col])) { // Coluna baixa
+                gpio_put(linhas[row], true); // Restaura a linha
                 return keys[row][col];
             }
         }
-        gpio_put(linhas[row], true);  // Desativa linha
+
+        gpio_put(linhas[row], true); // Restaura a linha
     }
-    return '\0';
+    return '\0'; // Nenhuma tecla pressionada
+}
+
+// Função para ativar/desativar LEDs com temporização
+void controlar_led(uint led, bool estado, int duracao_ms) {
+    gpio_put(led, estado);
+    if (duracao_ms > 0) sleep_ms(duracao_ms);
+    gpio_put(led, false);
 }
 
 // Função principal
 int main() {
-    stdio_init_all();  // Inicializa o sistema padrão de entrada/saída
-    init_gpio();       // Inicializa os pinos GPIO
+    stdio_init_all();  // Inicializa entrada/saída padrão
+    init_gpio();       // Configura os GPIOs
 
     printf("Sistema inicializado com sucesso. Aguardando entrada do teclado...\n");
 
     while (1) {
         char tecla = ler_teclado();  // Lê a tecla pressionada
-        if (tecla != '\0') {
+        if (tecla != '\0') {         // Se uma tecla foi pressionada
+            // Exibe a tecla pressionada no Serial Monitor
             printf("Tecla pressionada: %c\n", tecla);
 
-            // Exemplo de reações para cada tecla
+            // Executa ações com base na tecla pressionada
             switch (tecla) {
                 case '1':
-                    gpio_put(LED_GREEN, true);
+                    controlar_led(LED_GREEN, true, 500);
                     tocar_buzzer(100);
-                    sleep_ms(500);
-                    gpio_put(LED_GREEN, false);
                     break;
                 case '2':
-                    gpio_put(LED_BLUE, true);
+                    controlar_led(LED_BLUE, true, 500);
                     tocar_buzzer(100);
-                    sleep_ms(500);
-                    gpio_put(LED_BLUE, false);
                     break;
                 case '3':
-                    gpio_put(LED_RED, true);
+                    controlar_led(LED_RED, true, 500);
                     tocar_buzzer(100);
-                    sleep_ms(500);
-                    gpio_put(LED_RED, false);
                     break;
                 case '4':
                     printf("Ação personalizada para tecla 4\n");
                     tocar_buzzer(500);
-                    sleep_ms(250);
-                    tocar_buzzer(200);
                     break;
                 case '5':
-                    printf("Ação personalizada para tecla 5\n");
-                    gpio_put(LED_GREEN, true);
-                    sleep_ms(300);
-                    gpio_put(LED_GREEN, false);
+                    controlar_led(LED_GREEN, true, 300);
                     break;
                 case '6':
-                    printf("Ação personalizada para tecla 6\n");
-                    gpio_put(LED_BLUE, true);
-                    sleep_ms(300);
-                    gpio_put(LED_BLUE, false);
+                    controlar_led(LED_BLUE, true, 300);
                     break;
                 case '7':
                     printf("Ação personalizada para tecla 7\n");
-                    gpio_put(LED_RED, true);
+                    controlar_led(LED_RED, true, 200);
                     tocar_buzzer(200);
-                    sleep_ms(100);
-                    tocar_buzzer(150);
-                    sleep_ms(100);
-                    tocar_buzzer(100);
-                    sleep_ms(300);
-                    tocar_buzzer(50);
-                    gpio_put(LED_RED, false);
                     break;
                 case '8':
-                    printf("Ação personalizada para tecla 8\n");
                     tocar_buzzer(300);
-                    sleep_ms(200);
-                    tocar_buzzer(150);
-                    sleep_ms(150);
-                    tocar_buzzer(100);
-                    sleep_ms(50);
-                    tocar_buzzer(300);
-                    
                     break;
                 case '9':
-                    printf("Ação personalizada para tecla 9\n");
-                    gpio_put(LED_GREEN, true);
-                    gpio_put(LED_BLUE, true);
+                    controlar_led(LED_GREEN, true, 150);
+                    controlar_led(LED_BLUE, true, 150);
                     tocar_buzzer(150);
-                    sleep_ms(150);
-                    tocar_buzzer(150);
-                    sleep_ms(300);
-                    gpio_put(LED_GREEN, false);
-                    gpio_put(LED_BLUE, false);
                     break;
                 case '0':
-                    printf("Ação personalizada para tecla 0\n");
-                    gpio_put(LED_RED, true);
-                    tocar_buzzer(50);
-                    sleep_ms(100);
-                    gpio_put(LED_GREEN, true);
-                    tocar_buzzer(50);
-                    sleep_ms(300);
-                    gpio_put(LED_RED, false);
-                    gpio_put(LED_GREEN, false);
+                    controlar_led(LED_RED, true, 100);
+                    controlar_led(LED_GREEN, true, 100);
                     break;
                 case 'A':
-                    printf("Ação para tecla A: Ativando LED azul e buzzer.\n");
-                    gpio_put(LED_BLUE, true);
+                    printf("Ação para tecla A\n");
+                    controlar_led(LED_BLUE, true, 150);
                     tocar_buzzer(150);
-                    gpio_put(LED_BLUE, false);
                     break;
                 case 'B':
-                    printf("Ação para tecla B: Ciclo de LEDs.\n");
-                    gpio_put(LED_GREEN, true);
-                    tocar_buzzer(150);
-                    sleep_ms(200);
-                    gpio_put(LED_GREEN, false);
-                    gpio_put(LED_BLUE, true);
-                    tocar_buzzer(150);
-                    sleep_ms(200);
-                    gpio_put(LED_BLUE, false);
-                    gpio_put(LED_RED, true);
-                    tocar_buzzer(150);
-                    sleep_ms(200);
-                    gpio_put(LED_RED, false);
+                    printf("Ciclo de LEDs para tecla B\n");
+                    controlar_led(LED_GREEN, true, 200);
+                    controlar_led(LED_BLUE, true, 200);
+                    controlar_led(LED_RED, true, 200);
                     break;
                 case 'C':
-                    printf("Ação para tecla C: Todos os LEDs piscando.\n");
+                    printf("Todos os LEDs piscando (tecla C)\n");
                     for (int i = 0; i < 3; i++) {
-                        gpio_put(LED_RED, true);
-                        gpio_put(LED_GREEN, true);
-                        gpio_put(LED_BLUE, true);
-                        tocar_buzzer(300);
-                        sleep_ms(200);
-                        gpio_put(LED_RED, false);
-                        gpio_put(LED_GREEN, false);
-                        gpio_put(LED_BLUE, false);
+                        controlar_led(LED_RED, true, 200);
+                        controlar_led(LED_GREEN, true, 200);
+                        controlar_led(LED_BLUE, true, 200);
                         sleep_ms(200);
                     }
                     break;
                 case 'D':
-                    printf("Ação para tecla D: Ativando todos os LEDs.\n");
-                    gpio_put(LED_RED, true);
-                    tocar_buzzer(500);
-                    gpio_put(LED_GREEN, true);
-                    tocar_buzzer(500);
-                    gpio_put(LED_BLUE, true);
-                    tocar_buzzer(500);
-                    sleep_ms(500);
-                    gpio_put(LED_RED, false);
-                    gpio_put(LED_GREEN, false);
-                    gpio_put(LED_BLUE, false);
+                    printf("Ativando todos os LEDs (tecla D)\n");
+                    controlar_led(LED_RED, true, 500);
+                    controlar_led(LED_GREEN, true, 500);
+                    controlar_led(LED_BLUE, true, 500);
                     break;
                 case '#':
-                    gpio_put(LED_BLUE, true);
-                    tocar_buzzer(150);
-                    gpio_put(LED_BLUE, false);
-                    sleep_ms(150);
-                    gpio_put(LED_RED, true);
-                    tocar_buzzer(300);
-                    gpio_put(LED_RED, false);
-                    sleep_ms(300);
-                    gpio_put(LED_GREEN, true);
-                    tocar_buzzer(600);
-                    gpio_put(LED_GREEN, false);
+                    printf("Efeito especial (#)\n");
+                    controlar_led(LED_BLUE, true, 150);
+                    controlar_led(LED_RED, true, 300);
+                    controlar_led(LED_GREEN, true, 600);
                     break;
                 case '*':
                     printf("Encerrando o programa.\n");
-                    return 0;  // Encerra o programa
+                    return 0;
                 default:
                     printf("Tecla %c não configurada.\n", tecla);
             }
 
-            // Debounce para evitar múltiplas leituras
-            sleep_ms(300);
+            // Tempo de debounce
+            sleep_ms(DEBOUNCE_TIME_MS);
         }
     }
 
-    return 0;  // Retorna 0 se o programa for finalizado
+    return 0;
 }
