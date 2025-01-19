@@ -12,7 +12,7 @@ Este projeto é uma tarefa do programa EMBARCATECH para realizar a implementaç�
 ## Integrantes
 - Yasmin Cruz - Github: YasminCruz001
 - Vinicius Lemos de Carvalho - Github: ViniciusLemosDev
--
+- Kailane Bitencourt dos Santos - GitHub: KailaneBitencourt
 -
 -
 -
