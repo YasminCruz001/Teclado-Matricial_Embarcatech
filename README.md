@@ -20,8 +20,8 @@ Este projeto é uma tarefa do programa EMBARCATECH para realizar a implementaç�
 ## Mapeamento das Teclas
 | Tecla | Ação |
 |--------|------------------------------------------------|
-| 1      | Acende LED Verde e toca o buzzer brevemente  |
-| 2      | Acende LED Azul e toca o buzzer brevemente   |
+| 1      | Acende LED Azul e toca o buzzer                 |
+| 2      | Sequência de LEDs com som                       |
 | 3      | Acende LED Vermelho e toca o buzzer brevemente |
 | 4      | Aciona sequência de buzzer                    |
 | 5      | Pisca LED Verde                              |
@@ -30,9 +30,9 @@ Este projeto é uma tarefa do programa EMBARCATECH para realizar a implementaç�
 | 8      | Sequência de tons sonoros                   |
 | 9      | Acende LED Verde e Azul e emite dois tons   |
 | 0      | Acende LED Vermelho e Verde com som         |
-| A      | Acende LED Azul e toca o buzzer             |
-| B      | Sequência de LEDs com som                   |
-| C      | Todos os LEDs piscam com som                |
+| A      | Acende LED Verde                            |
+| B      | Acende LED Azul                             |
+| C      | Acende LED Vermelho                         |
 | D      | Acende todos os LEDs                        |
 | #      | Sequência de cores e tons                   |
 | *      | Finaliza o programa                         |
