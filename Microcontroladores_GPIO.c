@@ -84,3 +84,22 @@ char ler_teclado() {
     }
     return '\0';
 }
+
+// Função principal
+int main() {
+    stdio_init_all();  // Inicializa o sistema padrão de entrada/saída
+    init_gpio();       // Inicializa os pinos GPIO
+
+    printf("Sistema inicializado com sucesso. Aguardando entrada do teclado...\n");
+
+    while (1) {
+        char tecla = ler_teclado();  // Lê a tecla pressionada
+        if (tecla != '\0') {
+            printf("Tecla pressionada: %c\n", tecla);
+            // Debounce para evitar múltiplas leituras
+            sleep_ms(300);
+        }
+    }
+
+    return 0;  // Retorna 0 se o programa for finalizado
+}
