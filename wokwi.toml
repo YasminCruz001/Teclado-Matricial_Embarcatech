@@ -1,4 +1,4 @@
 [wokwi]
 version = 1
-firmware = 'build/Microcontroladores_GPIO.hex'
+firmware = 'build/Microcontroladores_GPIO.uf2'
 elf = 'build/Microcontroladores_GPIO.elf'
