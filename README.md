@@ -9,6 +9,14 @@ Este projeto é uma tarefa do programa EMBARCATECH para realizar a implementaç�
 - Emissão de sons pelo buzzer conforme a tecla pressionada.
 - Finalização do programa ao pressionar '*'.
 
+## Integrantes
+- Yasmin Cruz - Github: YasminCruz001
+- Vinicius Lemos de Carvalho - Github: ViniciusLemosDev
+-
+-
+-
+-
+
 ## Hardware Necessário
 - Raspberry Pi Pico
 - Teclado matricial 4x4
