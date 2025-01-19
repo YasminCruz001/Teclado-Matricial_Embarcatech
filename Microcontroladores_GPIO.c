@@ -98,19 +98,19 @@ int main() {
 
             // Exemplo de reações para cada tecla
             switch (tecla) {
-                case '1':
+                case 'A':
                     gpio_put(LED_GREEN, true);
                     tocar_buzzer(100);
                     sleep_ms(500);
                     gpio_put(LED_GREEN, false);
                     break;
-                case '2':
+                case 'B':
                     gpio_put(LED_BLUE, true);
                     tocar_buzzer(100);
                     sleep_ms(500);
                     gpio_put(LED_BLUE, false);
                     break;
-                case '3':
+                case 'C':
                     gpio_put(LED_RED, true);
                     tocar_buzzer(100);
                     sleep_ms(500);
@@ -179,14 +179,14 @@ int main() {
                     gpio_put(LED_RED, false);
                     gpio_put(LED_GREEN, false);
                     break;
-                case 'A':
-                    printf("Ação para tecla A: Ativando LED azul e buzzer.\n");
+                case '1':
+                    printf("Ação para tecla 1: Ativando LED azul e buzzer.\n");
                     gpio_put(LED_BLUE, true);
                     tocar_buzzer(150);
                     gpio_put(LED_BLUE, false);
                     break;
-                case 'B':
-                    printf("Ação para tecla B: Ciclo de LEDs.\n");
+                case '2':
+                    printf("Ação para tecla 2: Ciclo de LEDs.\n");
                     gpio_put(LED_GREEN, true);
                     tocar_buzzer(150);
                     sleep_ms(200);
@@ -200,8 +200,8 @@ int main() {
                     sleep_ms(200);
                     gpio_put(LED_RED, false);
                     break;
-                case 'C':
-                    printf("Ação para tecla C: Todos os LEDs piscando.\n");
+                case '3':
+                    printf("Ação para tecla 3: Todos os LEDs piscando.\n");
                     for (int i = 0; i < 3; i++) {
                         gpio_put(LED_RED, true);
                         gpio_put(LED_GREEN, true);
