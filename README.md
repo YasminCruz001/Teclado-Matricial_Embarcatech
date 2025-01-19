@@ -59,3 +59,4 @@ O Wokwi permite simular a execução do código sem a necessidade do hardware f�
 4. O terminal exibirá a saída do código, e o teclado matricial do Wokwi permitirá a interação.
 
 ## Link do video no Youtube
+https://youtu.be/_yieleeHDm0
