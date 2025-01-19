@@ -45,24 +45,6 @@ O Wokwi permite simular a execução do código sem a necessidade do hardware f�
 1. Instale o [Visual Studio Code](https://code.visualstudio.com/).
 2. Instale a extensão **Wokwi for VS Code** na aba de extensões (`Ctrl+Shift+X`).
 3. Abra o projeto no VS Code.
-4. Crie o arquivo `wokwi.toml` no diretório raiz do projeto e adicione o seguinte conteúdo:
-
-```toml
-chip = "rp2040"
-
-devices = [
-    { type="led", pin=11, color="green" },
-    { type="led", pin=12, color="blue" },
-    { type="led", pin=13, color="red" },
-    { type="buzzer", pin=21 },
-    { type="matrix-keypad", rows=[8, 7, 6, 5], cols=[4, 3, 2, 1], keys=[
-        ["1", "2", "3", "A"],
-        ["4", "5", "6", "B"],
-        ["7", "8", "9", "C"],
-        ["*", "0", "#", "D"]
-    ] }
-]
-```
 
 ### 2. Compilação e Execução no Wokwi
 
@@ -75,11 +57,5 @@ devices = [
    ```
 3. Para rodar no Wokwi, use o atalho `Ctrl+Shift+P`, digite **"Wokwi: Start Simulation"** e selecione a opção.
 4. O terminal exibirá a saída do código, e o teclado matricial do Wokwi permitirá a interação.
-
-## Contribuição
-Caso queira contribuir com melhorias, faça um fork do repositório, crie uma branch e envie um pull request!
-
-## Licença
-Este projeto está sob a licença MIT.
 
 ## Link do video no Youtube
