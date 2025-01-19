@@ -16,6 +16,8 @@ Este projeto é uma tarefa do programa EMBARCATECH para realizar a implementaç�
 -
 -
 -
+-
+-
 
 ## Hardware Necessário
 - Raspberry Pi Pico
