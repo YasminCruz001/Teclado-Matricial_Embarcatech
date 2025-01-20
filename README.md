@@ -16,7 +16,7 @@ Este projeto é uma tarefa do programa EMBARCATECH para realizar a implementaç�
 - André Lucas Rocha Santos - GitHub: DecoTchan
 - Fabio Ricardo de Oliveira Silva Filho - GitHub: fabiooliveiraaa
 - Pedro Henrique Palmarella Rodrigues - Github: pedropalmarella
--
+- Gabriel Santos dos Santos - Github: GSdosSantos
 -
 
 ## Hardware Necessário
