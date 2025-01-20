@@ -17,7 +17,7 @@ Este projeto é uma tarefa do programa EMBARCATECH para realizar a implementaç�
 - Fabio Ricardo de Oliveira Silva Filho - GitHub: fabiooliveiraaa
 - Pedro Henrique Palmarella Rodrigues - Github: pedropalmarella
 - Gabriel Santos dos Santos - Github: GSdosSantos
--
+- Cláudio Marinho dos Santos Junior - GitHub: Claudio-Marinho
 
 ## Hardware Necessário
 - Raspberry Pi Pico
