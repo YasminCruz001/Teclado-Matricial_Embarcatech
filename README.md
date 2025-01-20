@@ -15,7 +15,7 @@ Este projeto é uma tarefa do programa EMBARCATECH para realizar a implementaç�
 - Kailane Bitencourt dos Santos - GitHub: KailaneBitencourt
 - André Lucas Rocha Santos - GitHub: DecoTchan
 - Fabio Ricardo de Oliveira Silva Filho - GitHub: fabiooliveiraaa
--
+- Pedro Henrique Palmarella Rodrigues - Github: pedropalmarella
 -
 -
 
