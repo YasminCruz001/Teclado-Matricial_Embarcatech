@@ -10,11 +10,11 @@ Este projeto é uma tarefa do programa EMBARCATECH para realizar a implementaç�
 - Finalização do programa ao pressionar '*'.
 
 ## Integrantes
-- Yasmin Cruz - Github: YasminCruz001
-- Vinicius Lemos de Carvalho - Github: ViniciusLemosDev
+- Yasmin Cruz - GitHub: YasminCruz001
+- Vinicius Lemos de Carvalho - GitHub: ViniciusLemosDev
 - Kailane Bitencourt dos Santos - GitHub: KailaneBitencourt
 - André Lucas Rocha Santos - GitHub: DecoTchan
--
+- Fabio Ricardo de Oliveira Silva Filho - GitHub: fabiooliveiraaa
 -
 -
 -
